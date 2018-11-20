@@ -1,9 +1,9 @@
 {
-    "username": "rfid",
+    "username": "root",
 
-    "password": "rfid",
+    "password": "D@n9RFID#",
 
-    "database": "rfid",
+    "database": "iot",
 
     "host": "127.0.0.1",
 
