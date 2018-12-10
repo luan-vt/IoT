@@ -42,26 +42,26 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Current login user
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 //==========================================================
 //Route
 app.use(flash());
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api')
 
 app.use('/assets', express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
-console.log(models.user)
 require('./config/passport')(passport, models.user);
 
-
-    //Sync Database
-models.sequelize.sync().then(function(){
-  console.log('Nice! Database looks fine')
-}).catch(function(err){
-    console.log(err,"Something went wrong with the Database Update!")
-});
 //==========================================================
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

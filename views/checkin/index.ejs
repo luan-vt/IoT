@@ -1,0 +1,126 @@
+<% if(message) {%>
+	<%- message %>
+<% } %>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+        	<div class="row">
+        		<div class="col-sm-12 col-xl-6">
+		            <div class="card">
+		                <div class="card-header">
+		                    <i class="fa fa-align-justify"></i> ĐĂNG KÝ MỚI
+		                    <div class="card-header-actions">
+		                        <a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-collapse/" target="_blank">
+		                        </a>
+		                    </div>
+		                </div>
+	                	<form class="form-horizontal" action="/add-rfid" method="post">
+			                <div class="card-body">
+			                		<div class="form-group row">
+			                			<label class="col-md-3 col-form-label" for="text-input">ID thẻ:</label>
+			                			<div class="col-md-9">
+			                				<input class="form-control" id="rfid" type="text" name="rfid" placeholder="RFID">
+			                			</div>
+			                		</div>
+			                		<div class="form-group row">
+			                			<label class="col-md-3 col-form-label" for="email-input">MSSV</label>
+			                			<div class="col-md-9">
+			                				<input class="form-control" id="mssv" type="text" name="mssv" placeholder="MSSV">
+			                				<span class="help-block">Điền mã số sinh viên</span>
+			                			</div>
+			                		</div>
+			                </div>
+			                <div class="card-footer">
+								<button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-dot-circle-o"></i> Submit</button>
+<!-- 								<button class="btn btn-sm btn-primary" id="new_checkInfo"><i class="fa fa-dot-circle-o"></i> Kiểm tra thông tin</button>
+ -->							</div>
+	                	</form>
+		            </div>
+		        </div>
+<!-- 		        <div class="col-sm-12 col-xl-6">
+		            <div class="card">
+		                <div class="card-header">
+		                    <i class="fa fa-align-justify"></i> Thông tin sinh viên
+		                </div>
+		                <div class="card-body">
+		                		<div class="form-group row">
+		                			<label class="col-md-3 col-form-label" for="text-input">Họ và tên:</label>
+		                			<div class="col-md-9">
+		                				<input class="form-control" type="text" name="name" placeholder="Text">
+		                			</div>
+		                		</div>
+		                		<div class="form-group row">
+		                			<label class="col-md-3 col-form-label" for="email-input">Khoa</label>
+		                			<div class="col-md-9">
+		                				<input class="form-control" type="email" name="faculty" placeholder="N/A">
+		                			</div>
+		                		</div>
+		                		<div class="form-group row">
+		                			<label class="col-md-3 col-form-label" for="email-input">Lớp</label>
+		                			<div class="col-md-9">
+		                				<input class="form-control" type="email" name="class" placeholder="N/A">
+		                			</div>
+		                		</div>
+		                </div>
+		                <div class="card-footer">
+							<button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-dot-circle-o"></i> Submit</button>
+							<button class="btn btn-sm btn-primary" id="new_checkInfo"><i class="fa fa-dot-circle-o"></i> Kiểm tra thông tin</button>
+						</div>
+		            </div>
+		        </div> -->
+		    </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> THIẾT BỊ ĐÃ ĐĂNG KÝ MƯỢN
+                    <div class="card-header-actions">
+                        <a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-collapse/" target="_blank">
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Link with href</a>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-align-justify"></i> THIẾT BỊ ĐANG MƯỢN
+                    <div class="card-header-actions">
+                        <a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-collapse/" target="_blank">
+                            <small class="text-muted">docs</small>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Link with href</a>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
+                    </p>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+// $(document).ready(function(){
+//     $("#new_checkInfo").on("click", function(e){
+//     	e.preventDefault();
+
+//     	var mssv = $("#mssv").val()
+// 	    $.get("/checknewRfid", function(data, status){
+//         	alert("Data: " + data + "\nStatus: " + status);
+//     });
+//     })
+// });
+</script>

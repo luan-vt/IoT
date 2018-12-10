@@ -1,17 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt-nodejs');
+var passport = require('passport')
+var indexController = require("../controllers/indexController.js")
+
+
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-	if (req.session.ap){
-		res.send(bcrypt.hashSync('123', bcrypt.genSaltSync(8), null));
-	}
-	else{
-		req.session.ap = 123;
-		res.send('Not set');
-	} 
-  //res.render('index', { title: 'Express' });
+router.get('/', isLoggedIn,  function(req, res, next) {
+  res.render('index', { view: 'checkin/index', message: req.flash('message')});
 });
 
+router.post('/add-rfid', isLoggedIn, indexController.addRfid);
+
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+
+    res.redirect('/users/signin');
+}

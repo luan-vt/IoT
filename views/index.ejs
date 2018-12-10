@@ -1,11 +1,101 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>Quản lý thiết bị IoT</title>
+
+    <link href="/assets/stylesheets/coreui-icons.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/flag-icon.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/simple-line-icons.css" rel="stylesheet">
+
+    <link href="/assets/stylesheets/style.css" rel="stylesheet">
+    <link href="/assets/stylesheets/pace.min.css" rel="stylesheet">
+
+</head>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+        <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+        	<div>IoT</div>
+        </a>
+        <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="nav navbar-nav ml-auto">
+        	<% if(typeof locals.user == 'object' && locals.user){ %>
+		        <li class="nav-item dropdown">
+		            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+		                Welcome <strong><div><%= locals.user.name %></div></strong>
+		            </a>
+		            <div class="dropdown-menu dropdown-menu-right">
+		                <div class="dropdown-header text-center">
+		                    <strong>Tài khoản</strong>
+		                </div>
+		                <a class="dropdown-item" href="/users">
+		                    Thông tin</a>
+		                <a class="dropdown-item" href="/users/signout">
+		                    Đăng xuất</a>
+		            </div>
+		        </li>
+            <% } %>
+        </ul>
+    </header>
+    <div class="app-body">
+        <div class="sidebar">
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="main.html">
+                            <i class="nav-icon icon-speedometer"></i> Dashboard
+                        </a>
+                    </li>
+<!--                     <li class="nav-title">Theme</li>
+ -->                </ul>
+            </nav>
+            <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+        </div>
+        <main class="main">
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Trang chủ</li>
+            </ol>
+            <div class="container-fluid">
+                <div id="ui-view">
+                	<% if (typeof view == 'string' && view) {%>
+                		<%- include(view) %>
+                	<% }%>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="app-footer">
+        <div>
+            Nhóm 5
+            <span>© Công nghệ IoT hiện đại</span>
+        </div>
+    </footer>
+
+    <script src="/assets/javascripts/jquery.min.js"></script>
+    <script src="/assets/javascripts/popper.min.js"></script>
+    <script src="/assets/javascripts/bootstrap.min.js"></script>
+    <script src="/assets/javascripts/pace.min.js"></script>
+    <script src="/assets/javascripts/perfect-scrollbar.min.js"></script>
+    <script src="/assets/javascripts/coreui.min.js"></script>
+<!--     <script>
+        $('#ui-view').ajaxLoad();
+        $(document).ajaxComplete(function() {
+            Pace.restart()
+        });
+    </script> -->
+</body>
+
 </html>
