@@ -31,11 +31,14 @@
         </div>
         <script type="text/javascript">
         	$(document).ready(function(){
-        		setInterval($.get("/check-queue", function (data, status) {
-        			if(data.indexOf('OK') > -1){
-        				location.reload()
-        			}
-        		}), 1000);
+        		setInterval(function(){
+        			$.get("/check-queue", function (data) {
+	        			if(data.indexOf('OK') > -1){
+	        				location.reload()
+	        			}
+        			})
+        		}
+    			, 1000);
         	});
         </script>
 <% } %>
