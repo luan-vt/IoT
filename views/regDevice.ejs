@@ -1,0 +1,73 @@
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="IoT - Management">
+    <title>Đăng ký mượn thiết bị</title>
+    <!-- Icons-->
+    <link href="/assets/stylesheets/coreui-icons.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/flag-icon.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/font-awesome.min.css" rel="stylesheet">
+    <link href="/assets/stylesheets/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="/assets/stylesheets/style.css" rel="stylesheet">
+    <link href="/assets/stylesheets/pace.min.css" rel="stylesheet">
+  </head>
+  <body class="app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form action="/reg-device" method="POST">
+                <h1>ĐK mượn thiết bị</h1>
+                  <p class="text-muted">Chọn những thiết bị bạn muốn mượn trước, sau đó lên phongf E3.1 để nhận thiết bị</p>
+                     <% if(typeof message != "undefined" && message.length > 0) { %>
+                      <div class="alert alert-danger"><%= message %></div> 
+                     <% } %>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="icon-user"></i>
+                      </span>
+                    </div>
+                    <input class="form-control" type="text" placeholder="MSSV" name="mssv">
+                  </div>
+                    <% for(var i=0; i<devices.length; i++) {%>
+                    <div class=" input-group-prepend form-check checkbox">
+                      <input class="form-check-input"  type="checkbox" name=reg_devices value="<%= devices[i].id %>">
+                      <label class="form-check-label"><%= devices[i].name %>  &nbsp; <span class="badge badge-pill badge-primary"><%= devices[i].remainAmount %> </span><br/><br/></label>
+                    </div>
+                    <% } %>
+                  <div class="row">
+                    <div class="col-6">
+                      <input type="submit" class="btn btn-primary px-4" type="button" value="GỬI"/>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2>IoT</h2>
+                  <p>Quản lý mượn - trả các thiết bị phục vụ nghiên cứu Internet of Things tại phòng Lab.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+    <script src="/assets/javascripts/jquery.min.js"></script>
+    <script src="/assets/javascripts/popper.min.js"></script>
+    <script src="/assets/javascripts/bootstrap.min.js"></script>
+    <script src="/assets/javascripts/pace.min.js"></script>
+    <script src="/assets/javascripts/perfect-scrollbar.min.js"></script>
+    <script src="/assets/javascripts/coreui.min.js"></script>
+  </body>
+</html>

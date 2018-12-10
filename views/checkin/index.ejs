@@ -3,6 +3,41 @@
 <% } %>
 <div class="animated fadeIn">
     <div class="row">
+    	<div class="col-sm-12">
+        	<div class="row">
+		    	<div class="col-sm-4 col-sm-offset-4 ">
+		    		<form action="/ignore" method="POST">
+		    			<input type="hidden" name="rfid" value="<%= rfid.id %>"  />
+		    			<button class="btn btn-xl btn-info" type="submit"><i class="fa fa-dot-circle-o"></i> Bỏ qua thẻ này</button>
+		    		</form>
+		    	</div>
+		    </div>
+		</div>
+<% if(type == 0) {%>
+        <div class="col-sm-12">
+        	<div class="card">
+        		<div class="card-header">
+        			<i class="fa fa-align-justify"></i> Rỗng
+        		</div>
+        		<div class="card-body">
+        			<div class="alert alert-success" role="alert">
+        				<h4 class="alert-heading">Well done!</h4>
+        				<p>Quét thẻ SV vào thiết bị đọc để tiếp tục.</p>
+        			</div>
+        		</div>
+        	</div>
+        </div>
+        <script type="text/javascript">
+        	$(document).ready(function(){
+        		setInterval($.get("/check-queue", function (data, status) {
+        			if(data.indexOf('OK') > -1){
+        				location.reload()
+        			}
+        		}), 1000);
+        	});
+        </script>
+<% } %>
+<% if(type == 1) {%>
         <div class="col-sm-12">
         	<div class="row">
         		<div class="col-sm-12 col-xl-6">
@@ -19,7 +54,7 @@
 			                		<div class="form-group row">
 			                			<label class="col-md-3 col-form-label" for="text-input">ID thẻ:</label>
 			                			<div class="col-md-9">
-			                				<input class="form-control" id="rfid" type="text" name="rfid" placeholder="RFID">
+			                				<input class="form-control" id="rfid" type="text" name="rfid" placeholder="RFID" value="<%= rfid.rfid %>">
 			                			</div>
 			                		</div>
 			                		<div class="form-group row">
@@ -70,45 +105,108 @@
 		        </div> -->
 		    </div>
         </div>
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-align-justify"></i> THIẾT BỊ ĐÃ ĐĂNG KÝ MƯỢN
-                    <div class="card-header-actions">
-                        <a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-collapse/" target="_blank">
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p>
-                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Link with href</a>
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
-                    </p>
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</div>
-                    </div>
-                </div>
+<% } %>
+<% if(type == 2) {%>
+        <div class="col-sm-10 col-sm-offset-1">
+	        	<div class="card">
+	        		<div class="card-body">
+	    				<h4 class="alert-heading">Sinh viên: <%= student.name %> - <%= student.id %></h4>
+	        		</div>
+	        	</div>
+	    <% if (newList.length > 0 ) { %> 
+        	<form action="/new-list" method="POST">
+        		<input type="hidden" name="studentId" value="<%= student.id%>"/>
+	            <div class="card">
+	                <div class="card-header">
+	                    <i class="fa fa-align-justify"></i> THIẾT BỊ ĐÃ ĐĂNG KÝ MƯỢN
+	                    <div class="card-header-actions">
+        					<button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-dot-circle-o"></i> Submit</button>
+	                    </div>
+	                </div>
+	                <div class="card-body">
+	                	<table class="table table-responsive-sm">
+	                		<thead>
+	                			<tr>
+	                				<th>#</th>
+	                				<th>Tên thiết bị</th>
+	                				<th>Ngày mượn</th>
+	                				<th></th>
+	                			</tr>
+	                		</thead>
+	                		<tbody>
+	<% for(var i=0; i<newList.length; i++) {%>
+	   <tr>
+	     <td> <%= i+1 %> </td>
+	     <td> <%= newList[i].device.name %></td>
+	     <td>
+	     	<div class="form-check form-check-inline mr-1">
+			<input class="form-check-input" type="checkbox" value="<%= newList[i].id %>" name="ckb_new_list[]" checked="checked">
+			</div>
+		</td>
+	   </tr>
+	<% } %>
+	                		</tbody>
+	                	</table>
+	                </div>
+	            </div>
+       		</form>
+  	<% } %>
+    <% if (borrowList.length > 0 ) { %> 
+    		<form action="/return-list" method="POST">
+    			<input type="hidden" name="studentId" value="<%= student.id%>"/>
+	            <div class="card">
+	                <div class="card-header">
+	                    <i class="fa fa-align-justify"></i> THIẾT BỊ ĐANG MƯỢN
+	                    <div class="card-header-actions">
+	        					<button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-dot-circle-o"></i> Trả thiết bị</button>
+		                    </div>
+	                </div>
+						<div class="card-body">
+		                	<table class="table table-responsive-sm">
+		                		<thead>
+		                			<tr>
+		                				<th>#</th>
+		                				<th>Tên thiết bị</th>
+		                				<th>Ngày mượn</th>
+		                				<th></th>
+		                			</tr>
+		                		</thead>
+		                		<tbody>
+									<% for(var i=0; i<borrowList.length; i++) {%>
+									   <tr>
+								     <td> <%= i+1 %> </td>
+								     <td> <%= borrowList[i].device.name %></td>
+								     <td> <%= borrowList[i].borrow_date %></td>
+								     <td>
+								     	<div class="form-check form-check-inline mr-1">
+										<input class="form-check-input" type="checkbox" value="<%= borrowList[i].id %>" name="ckb_borrow_list[]" checked="checked">
+										</div>
+									</td>
+								   </tr>
+								<% } %>
+		                		</tbody>
+		                	</table>
+		                </div>
+		            </div>
+		        </div>
             </div>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-align-justify"></i> THIẾT BỊ ĐANG MƯỢN
-                    <div class="card-header-actions">
-                        <a class="card-header-action" href="https://coreui.io/docs/components/bootstrap-collapse/" target="_blank">
-                            <small class="text-muted">docs</small>
-                        </a>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <p>
-                        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Link with href</a>
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Button with data-target</button>
-                    </p>
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</div>
-                    </div>
-                </div>
-            </div>
+ 	<% } %>
+ 	<% if (borrowList.length == 0 && newList.length == 0) { %> 
+ 		<div class="card">
+        		<div class="card-header">
+        			<i class="fa fa-align-justify"></i> Không có gì để xử lý
+        		</div>
+        		<div class="card-body">
+        			<div class="alert alert-danger" role="alert">
+        				<h4 class="alert-heading">Oh no!</h4>
+        				<p>Để đăng ký mượn thiết bị, cần điền thông tin đăng ký mượn trước.</p>
+        			</div>
+        		</div>
+        	</div>
+ 	<% } %>
         </div>
+<% } %>
+
     </div>
 </div>
 

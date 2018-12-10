@@ -12,7 +12,9 @@ var sequelize = new Sequelize(config.database, config.username, config.password,
 	$gt: Op.gt,
 	$lt: Op.lt,
 	$lte: Op.lte,
-	$like: Op.like
+	$like: Op.like,
+    $in: Op.in,
+    $notIn: Op.notIn
 }});
 var db = {};
  
@@ -25,7 +27,6 @@ fs
     .forEach(function(file) {
         var model = sequelize.import(path.join(__dirname, file));
         db[model.name] = model;
-        console.log(model.name);
     });
  
 Object.keys(db).forEach(function(modelName) {
@@ -37,5 +38,8 @@ Object.keys(db).forEach(function(modelName) {
  
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
- 
+
+db.borrowDevice.belongsTo(db.device, {foreignKey: 'device_id'})
+db.device.hasMany(db.borrowDevice, {foreignKey: 'device_id'})
+
 module.exports = db;

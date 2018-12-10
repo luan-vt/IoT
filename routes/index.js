@@ -7,11 +7,17 @@ var indexController = require("../controllers/indexController.js")
 
 
 /* GET home page. */
-router.get('/', isLoggedIn,  function(req, res, next) {
-  res.render('index', { view: 'checkin/index', message: req.flash('message')});
-});
+router.get('/', isLoggedIn,  indexController.checkin);
 
 router.post('/add-rfid', isLoggedIn, indexController.addRfid);
+
+router.post('/new-list', isLoggedIn, indexController.newList)
+router.post('/return-list', isLoggedIn, indexController.returnList)
+router.get('/reg-device', indexController.reg)
+router.post('/reg-device', indexController.postReg)
+
+router.post('/ignore', indexController.ignore)
+router.get('/check-queue', indexController.checkQueue)
 
 module.exports = router;
 
