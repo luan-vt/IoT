@@ -170,7 +170,9 @@ exports.postReg = (req, res) => {
 							deviceId: device.id,
 							studentId: mssv,
 							status: 1
-						}).then(device =>{
+						}).then(borrowDevice =>{
+							device.remainAmount -= 1,
+							device.save()
 						}).catch(err=>{
 						})
 					}
@@ -181,7 +183,6 @@ exports.postReg = (req, res) => {
 		}else{
 		}
 	})
-
 
 	req.flash('message', "Đã đăng thực hiện đăng ký")
 	res.redirect("/reg-device")
